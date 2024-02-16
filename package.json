@@ -1,14 +1,14 @@
 {
   "name": "music-player",
   "version": "0.0.0",
-	"main": "app.js",
+  "main": "main.js",
   "scripts": {
-		"ng": "ng",
-		"start": "ng build --base-href ./ && electron .",
-		"build": "ng build",
-		"test": "ng test",
-		"lint": "ng lint",
-		"e2e": "ng e2e"
+    "ng": "ng",
+    "start": "ng build --base-href ./ && electron .",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -30,6 +30,7 @@
     "@angular/compiler-cli": "^17.1.0",
     "@types/jasmine": "~5.1.0",
     "electron": "^28.2.3",
+    "electron-reload": "^2.0.0-alpha.1",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
