@@ -4,11 +4,9 @@
   "main": "main.js",
   "scripts": {
     "ng": "ng",
-    "start": "ng build --base-href ./ && electron .",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "start": "concurrently \"npm run watch:angular\" \"npm run electron:start\"",
+    "watch:angular": "ng build --watch --base-href ./",
+    "electron:start": "nodemon --watch main.js --watch dist --exec electron ."
   },
   "private": true,
   "dependencies": {
@@ -29,6 +27,7 @@
     "@angular/cli": "^17.1.2",
     "@angular/compiler-cli": "^17.1.0",
     "@types/jasmine": "~5.1.0",
+    "concurrently": "^8.2.2",
     "electron": "^28.2.3",
     "electron-reload": "^2.0.0-alpha.1",
     "jasmine-core": "~5.1.0",
@@ -37,6 +36,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "nodemon": "^3.0.3",
     "typescript": "~5.3.2"
   }
 }

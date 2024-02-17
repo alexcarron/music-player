@@ -15,7 +15,7 @@ function createWindow() {
 
 	main_window.loadURL(
 		url.format({
-			pathname: path.join(__dirname, `/dist/music-player/browser/index.html`),
+			pathname: path.join(__dirname, `/dist/browser/index.html`),
 			protocol: "file:",
 			slashes: true
 		})
