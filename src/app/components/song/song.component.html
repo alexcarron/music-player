@@ -1,0 +1,11 @@
+<p>
+	<strong>{{ song.title }}</strong>
+
+	<span class="artist" *ngIf="song.artist">
+		by <em>{{ song.artist }}</em>
+	</span>
+
+	<span class="album" *ngIf="song.album">
+		from <em>{{ song.album }}</em>
+	</span>
+</p>

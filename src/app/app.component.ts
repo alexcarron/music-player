@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FileSelectionComponent } from './file-selection/file-selection.component';
+import { FileSelectionComponent } from './components/file-selection/file-selection.component';
+import { LibraryComponent } from './components/library/library.component';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,7 @@ import { FileSelectionComponent } from './file-selection/file-selection.componen
   imports: [
 		RouterOutlet,
 		FileSelectionComponent,
+		LibraryComponent,
 	],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

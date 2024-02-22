@@ -1,32 +1,6 @@
 import { Song } from "./Song"
 
-export class SongFile implements Song {
-	private title: string;
-	private artist: string | null = null;
-	private album: string | null = null;
-
-	constructor(
-		title: string
-	) {
-		this.title = title;
-	}
-
-	setArtist(artist: string) {
-		this.artist = artist;
-	}
-	setAlbum(album: string) {
-		this.album = album;
-	}
-	getTitle(): string {
-		return this.title;
-	};
-	getArtist(): string | null {
-		return this.artist;
-	};
-	getAlbum(): string | null {
-		return this.album;
-	};
-
+export class SongFile extends Song {
 	static async fromAudioFile(file: File): Promise<Song> {
 		const title = file.name;
 		const artist = null;
@@ -35,10 +9,10 @@ export class SongFile implements Song {
 		const song = new SongFile(title);
 
 		if (artist)
-			song.setArtist(artist);
+			song.artist = artist;
 
 		if (album)
-			song.setAlbum(album);
+			song.album = album;
 
 		return song;
 	}
