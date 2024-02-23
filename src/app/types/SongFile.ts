@@ -1,19 +1,20 @@
 import { Song } from "./Song"
 
 export class SongFile extends Song {
-	static async fromAudioFile(file: File): Promise<Song> {
-		const title = file.name;
-		const artist = null;
-		const album = null;
+	private _file_path: string;
 
-		const song = new SongFile(title);
+	constructor(
+		title: string,
+		file_path: string,
+	) {
+		super(title);
+		this._file_path = file_path;
+	}
 
-		if (artist)
-			song.artist = artist;
-
-		if (album)
-			song.album = album;
-
-		return song;
+	get file_path(): string {
+		return this._file_path;
+	};
+	set file_path(file_path: string) {
+		this._file_path = file_path;
 	}
 }

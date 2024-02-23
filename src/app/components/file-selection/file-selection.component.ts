@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Song } from '../../types/Song';
 import { SongFile } from '../../types/SongFile';
-import { MusicLibraryService } from '../../services/music-library.service';
+import { MusicLibraryService } from '../../services/music-library/music-library.service';
+import { FileManagerService } from '../../services/file-manager/file-manager.service';
 
 @Component({
   selector: 'file-selection',
@@ -11,37 +12,24 @@ import { MusicLibraryService } from '../../services/music-library.service';
   styleUrl: './file-selection.component.css'
 })
 export class FileSelectionComponent {
-  files_selected: FileList | null = null;
-
 	constructor(
-		private music_library_service: MusicLibraryService
+		private music_library_service: MusicLibraryService,
 	) {}
 
   async onFilesSelected(event: Event) {
     const files = (event.target as HTMLInputElement).files;
 
-    if (files && files.length > 0) {
-      this.files_selected = files;
-    }
+		let songs: SongFile[] = [];
 
-		const songs: Song[] = await this.getSongsFromFiles();
-		songs.forEach(song => {
-			this.music_library_service.addSong(song);
-		});
-  }
-
-	async getSongsFromFiles(): Promise<Song[]> {
-		let songs: Song[] = [];
-
-		if (this.files_selected !== null) {
+		if (files !== null) {
 			let file_index: number = 0;
 
-
-			while (file_index < this.files_selected.length) {
-				let current_file: File | null = this.files_selected.item(file_index);
+			while (file_index < files.length) {
+				let current_file: File | null = files.item(file_index);
 
 				if (current_file !== null) {
-					const song: Song = await SongFile.fromAudioFile(current_file);
+					const song: SongFile =
+						await this.music_library_service.createSongFromFile(current_file);
 
 					songs.push(song);
 				}
@@ -50,6 +38,9 @@ export class FileSelectionComponent {
 			}
 		}
 
-		return songs;
-	}
+		songs.forEach(song => {
+			this.music_library_service.addSong(song);
+		});
+
+  }
 }

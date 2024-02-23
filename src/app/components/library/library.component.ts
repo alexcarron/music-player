@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { MusicLibraryService } from '../../services/music-library.service';
+import { MusicLibraryService } from '../../services/music-library/music-library.service';
 import { Song } from '../../types/Song';
 import { SongComponent } from '../song/song.component';
 import { CommonModule } from '@angular/common';
+import { SongFile } from '../../types/SongFile';
 
 @Component({
   selector: 'library',
@@ -15,7 +16,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './library.component.css'
 })
 export class LibraryComponent {
-	songs: Song[] = [];
+	songs: SongFile[] = [];
 
 	constructor(
 		private music_library: MusicLibraryService

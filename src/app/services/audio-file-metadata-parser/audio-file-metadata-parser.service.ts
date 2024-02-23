@@ -5,7 +5,6 @@ import * as mm from 'music-metadata';
   providedIn: 'root'
 })
 export class AudioFileMetadataParserService {
-
   constructor() { }
 
   private static async getMetadataFromAudioFile(file: File): Promise<any> {

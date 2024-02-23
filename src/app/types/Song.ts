@@ -26,7 +26,7 @@ export abstract class Song {
 	get album(): string | null {
 		return this._album;
 	};
-	set album(album: string) {
+	set album(album: string | null) {
 		this._album = album;
 	}
 }
