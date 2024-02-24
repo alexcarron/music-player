@@ -19,6 +19,8 @@ export class AudioPlayerService {
   play(song_playing: SongFile): void {
     this.audio.src = song_playing.file_path; // Set the audio file path
     this.audio.play();
+
+		this.song_playing = song_playing;
   }
 
   pause(): void {

@@ -23,6 +23,7 @@ export class LibraryComponent {
 	) {}
 
 	ngOnInit() {
+		this.music_library.loadExistingSongs();
 		this.songs = this.music_library.getSongs();
 	}
 

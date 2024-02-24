@@ -1,9 +1,14 @@
 const {app, BrowserWindow, ipcMain} = require('electron')
+const mm = require('music-metadata');
 const fs = require('fs');
 const url = require("url");
 const path = require("path");
 
 let main_window;
+
+const user_data_path = app.getPath('userData');
+const cloned_audio_directory_path = path.join(user_data_path, 'cloned_audio');
+
 
 function createWindow() {
 	main_window = new BrowserWindow({
@@ -41,12 +46,9 @@ app.on('activate', function () {
 })
 
 ipcMain.on('audioFile', (event, file) => {
-	const user_data_path = app.getPath('userData');
-	const cloned_audio_file_path = path.join(user_data_path, 'cloned_audio', file.name);
+	const cloned_audio_file_path = path.join(cloned_audio_directory_path, file.name);
 
-  // Create the directory if it doesn't exist
-	const cloned_audio_directory_path = path.dirname(cloned_audio_file_path);
-
+	// Create the directory if it doesn't exist
 	const doesClonedAudioDirectoryExist = fs.existsSync(cloned_audio_directory_path);
 
 	if (!doesClonedAudioDirectoryExist) {
@@ -70,4 +72,46 @@ ipcMain.on('audioFile', (event, file) => {
 			}
 		}
 	);
+})
+
+ipcMain.on('readAudioFiles', async (event, _data) => {
+	let audio_files = [];
+
+	try {
+		audio_files = fs.readdirSync(cloned_audio_directory_path);
+
+		audio_files = await Promise.all(audio_files.map(async file_name => {
+			const file_path = path.join(cloned_audio_directory_path, file_name);
+			const metadata = await mm.parseFile(file_path);
+
+			const {
+				title,
+				artist,
+				album,
+				artists,
+				albumartist,
+				picture
+			} = metadata.common;
+
+			const metadata_obj = {
+				title,
+				artist,
+				album,
+				artists,
+				albumartist,
+				picture
+			}
+
+			const audio_file = {
+				file_path: file_path,
+				metadata: metadata_obj,
+			};
+			return audio_file;
+		}));
+	}
+	catch (error) {
+    console.error('Failed to read audio files:', error);
+	}
+
+	event.sender.send('readAudioFilesResponse', audio_files);
 })

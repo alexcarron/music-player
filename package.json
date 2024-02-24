@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "concurrently \"npm run watch:angular\" \"npm run electron:start\"",
     "watch:angular": "ng build --watch --base-href ./",
-    "electron:start": "nodemon --watch main.js --watch dist --exec electron ."
+    "electron:start": "ng build && nodemon --watch main.js --watch dist --exec electron ."
   },
   "private": true,
   "dependencies": {

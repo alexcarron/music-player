@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IpcRenderer } from 'electron';
+import { AudioFile } from '../../types/AudioFile';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,7 @@ export class FileManagerService {
 	 * @param file audio file to clone
 	 * @returns the file path of the cloned audio file
 	 */
-	copyFileInElectron(file: File): Promise<string> {
+	cloneAudioFile(file: File): Promise<string> {
 		return new Promise<string>((resolve, reject) => {
 
 			const reader = new FileReader();
@@ -79,6 +80,20 @@ export class FileManagerService {
 					const cloned_audio_file_path = data.path;
 					resolve(cloned_audio_file_path);
 				}
+			})
+		});
+	}
+
+	/**
+	 * @returns the file paths of the cloned audio files
+	 */
+	getClonedAudioFiles(): Promise<AudioFile[]> {
+		return new Promise<AudioFile[]>((resolve, reject) => {
+
+			this.send('readAudioFiles');
+
+			this.once('readAudioFilesResponse', (_event: any, audio_files: AudioFile[]) => {
+				resolve(audio_files);
 			})
 		});
 	}

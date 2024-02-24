@@ -20,10 +20,6 @@ export class SongComponent {
 		private audio_player_service: AudioPlayerService
 	) {}
 
-	ngOnInit() {
-		console.log(this.song);
-	}
-
 	play() {
 		this.audio_player_service.play(this.song);
 	}
