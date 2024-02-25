@@ -1,0 +1,12 @@
+
+<button (click)="toggle()">{{ quality.name }}: {{ quality.amount }}</button>
+<div *ngIf="isVisible" class="quality-editor" (click)="closeOnClick($event)" (closeModal)="close()">
+	<div class="quality-editor-content" (click)="$event.stopPropagation()">
+
+    <h2>Edit Quality</h2>
+    <input type="text" placeholder="Name" [(ngModel)]="quality.name">
+    <input type="range" min="0" max="100" step="1" [(ngModel)]="quality.amount">
+    <button (click)="edit()">Submit</button>
+
+	</div>
+</div>

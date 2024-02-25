@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { SongFile } from '../../types/SongFile';
-import { Song } from '../../types/Song';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AudioPlayerService {
   private audio: HTMLAudioElement;
-	private song_playing: Song | null;
+	private song_playing: SongFile | null;
 
   constructor() {
     this.audio = new Audio();
@@ -16,15 +15,36 @@ export class AudioPlayerService {
 		this.song_playing = null;
   }
 
-  play(song_playing: SongFile): void {
-    this.audio.src = song_playing.file_path; // Set the audio file path
-    this.audio.play();
+	/**
+	 * Plays audio file from song using HTMLAudioElement and resolves when audio ended
+	 * @param song_playing
+	 * @returns
+	 */
+  play(song_playing: SongFile): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.audio.src = song_playing.file_path; // Set the audio file path
+      this.audio.play();
 
-		this.song_playing = song_playing;
+      this.song_playing = song_playing;
+
+      // Event listener to resolve the promise when the audio finishes playing
+      this.audio.onended = () => {
+        resolve();
+      };
+
+      // Handle any error during playback
+      this.audio.onerror = (error) => {
+        reject(error);
+      };
+    });
   }
 
   pause(): void {
     this.audio.pause();
+  }
+
+  resume(): void {
+    this.audio.play();
   }
 
   stop(): void {
@@ -43,4 +63,20 @@ export class AudioPlayerService {
 	disableLooping() {
 		this.audio.loop = false;
 	}
+
+  getDuration(): number {
+    return this.audio.duration;
+  }
+
+  getCurrentTime(): number {
+    return this.audio.currentTime;
+  }
+
+  getVolume(): number {
+    return this.audio.volume;
+  }
+
+  isPlaying(): boolean {
+    return !this.audio.paused;
+  }
 }

@@ -1,14 +1,15 @@
-import { Component, Input } from '@angular/core';
-import { Song } from '../../types/Song';
+import { Component, Input, ViewChild } from '@angular/core';
 import { SongFile } from '../../types/SongFile';
 import { NgIf } from '@angular/common';
-import { AudioPlayerService } from '../../services/audio-player/audio-player.service';
+import { QueueService } from '../../services/queue/queue.service';
+import { QualitySelectorComponent } from '../quality-selector copy/quality-selector.component';
 
 @Component({
   selector: 'song',
   standalone: true,
   imports: [
 		NgIf,
+		QualitySelectorComponent,
 	],
   templateUrl: './song.component.html',
   styleUrl: './song.component.css'
@@ -17,10 +18,13 @@ export class SongComponent {
 	@Input() song!: SongFile;
 
 	constructor(
-		private audio_player_service: AudioPlayerService
+		private queue_service: QueueService,
 	) {}
 
 	play() {
-		this.audio_player_service.play(this.song);
+		console.log("play()");
+		this.queue_service.currently_playing_song = this.song;
 	}
+
+	toggleQualitiesSelector() {}
 }

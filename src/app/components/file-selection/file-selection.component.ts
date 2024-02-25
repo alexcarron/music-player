@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { Song } from '../../types/Song';
 import { SongFile } from '../../types/SongFile';
 import { MusicLibraryService } from '../../services/music-library/music-library.service';
 import { FileManagerService } from '../../services/file-manager/file-manager.service';
@@ -20,6 +19,7 @@ export class FileSelectionComponent {
     const files = (event.target as HTMLInputElement).files;
 
 		let songs: SongFile[] = [];
+		let files_array: File[] = [];
 
 		if (files !== null) {
 			let file_index: number = 0;
@@ -28,18 +28,15 @@ export class FileSelectionComponent {
 				let current_file: File | null = files.item(file_index);
 
 				if (current_file !== null) {
-					const song: SongFile =
-						await this.music_library_service.createSongFromFile(current_file);
-
-					songs.push(song);
+					files_array.push(current_file);
 				}
 
 				file_index += 1;
 			}
 		}
 
-		songs.forEach(song => {
-			this.music_library_service.addSong(song);
+		files_array.forEach(file => {
+			this.music_library_service.addNewSongFromFile(file);
 		});
 
   }

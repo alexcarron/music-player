@@ -1,0 +1,23 @@
+<div id="currently-playing-song-div"  *ngIf="currently_playing_song">
+	<span class="cover-art" *ngIf="currently_playing_song.cover_art_file_path">
+		<img src="{{currently_playing_song.cover_art_file_path}}" alt="{{currently_playing_song.title}} Cover Art">
+	</span>
+
+	<strong>{{ currently_playing_song.title }}</strong>
+
+	<span class="artists" *ngIf="currently_playing_song.artists">
+		by <em>{{ currently_playing_song.artists.join(", ") }}</em>
+	</span>
+
+	<span class="album" *ngIf="currently_playing_song.album">
+		from <em>{{ currently_playing_song.album }}</em>
+
+		<span class="album-artist" *ngIf="currently_playing_song.album_artist">
+			from <em>{{ currently_playing_song.album_artist }}</em>
+		</span>
+	</span>
+
+	<button *ngIf="queue.isPlayingSong" (click)="pause()"> Pause </button>
+	<button *ngIf="!queue.isPlayingSong" (click)="resume()"> Resume </button>
+
+</div>

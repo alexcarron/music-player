@@ -1,12 +1,9 @@
-import * as mm from 'music-metadata';
-
 interface Metadata {
-	title: string,
-	artist: string,
-	album: string,
-	artists: string[],
-	albumartist: string,
-	picture: mm.IPicture,
+	title: string | undefined,
+	album: string | undefined,
+	artists: string[] | undefined,
+	albumartist: string | undefined,
+	cover_art_file_path: string | undefined,
 }
 
 export interface AudioFile {

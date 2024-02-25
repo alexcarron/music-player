@@ -4,6 +4,8 @@ import { FileSelectionComponent } from './components/file-selection/file-selecti
 import { LibraryComponent } from './components/library/library.component';
 import { AudioPlayerService } from './services/audio-player/audio-player.service';
 import { MusicLibraryService } from './services/music-library/music-library.service';
+import { QueueService } from './services/queue/queue.service';
+import { CurrentlyPlayingSongComponent } from './components/current-playing-song/currently-playing-song.component';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +14,12 @@ import { MusicLibraryService } from './services/music-library/music-library.serv
 		RouterOutlet,
 		FileSelectionComponent,
 		LibraryComponent,
+		CurrentlyPlayingSongComponent,
 	],
 	providers: [
 		MusicLibraryService,
 		AudioPlayerService,
+		QueueService,
 	],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

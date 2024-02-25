@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { MusicLibraryService } from '../../services/music-library/music-library.service';
-import { Song } from '../../types/Song';
 import { SongComponent } from '../song/song.component';
 import { CommonModule } from '@angular/common';
 import { SongFile } from '../../types/SongFile';
@@ -22,12 +21,8 @@ export class LibraryComponent {
 		private music_library: MusicLibraryService
 	) {}
 
-	ngOnInit() {
-		this.music_library.loadExistingSongs();
+	async ngOnInit() {
+		await this.music_library.loadExistingSongs();
 		this.songs = this.music_library.getSongs();
-	}
-
-	onClick() {
-		console.log(this.songs);
 	}
 }

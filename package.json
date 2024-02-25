@@ -4,7 +4,8 @@
   "main": "main.js",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently \"npm run watch:angular\" \"npm run electron:start\"",
+    "start": "ng build --base-href ./ && electron .",
+    "test": "concurrently \"npm run watch:angular\" \"npm run electron:start\"",
     "watch:angular": "ng build --watch --base-href ./",
     "electron:start": "ng build && nodemon --watch main.js --watch dist --exec electron ."
   },

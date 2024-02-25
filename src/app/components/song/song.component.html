@@ -1,13 +1,24 @@
 <p>
+	<span class="cover-art" *ngIf="song.cover_art_file_path">
+		<img src="{{song.cover_art_file_path}}" alt="{{song.title}} Cover Art">
+	</span>
+
 	<strong>{{ song.title }}</strong>
 
-	<span class="artist" *ngIf="song.artist">
-		by <em>{{ song.artist }}</em>
+	<span class="artists" *ngIf="song.artists">
+		by <em>{{ song.artists.join(", ") }}</em>
 	</span>
 
 	<span class="album" *ngIf="song.album">
 		from <em>{{ song.album }}</em>
+
+		<span class="album-artist" *ngIf="song.album_artist">
+			from <em>{{ song.album_artist }}</em>
+		</span>
 	</span>
 
+
 	<button (click)="play()"> Play </button>
+	<quality-selector></quality-selector>
+
 </p>

@@ -1,0 +1,12 @@
+
+<button (click)="toggle()"> Add Custom Quality </button>
+<div *ngIf="isVisible" class="custom-quality-creator" (click)="closeOnClick($event)" (closeModal)="close()">
+	<div class="custom-quality-creator-content" (click)="$event.stopPropagation()">
+
+    <h2>Add Custom Quality</h2>
+    <input type="text" placeholder="Name" [(ngModel)]="quality.name">
+    <input type="range" min="0" max="100" step="1" [(ngModel)]="quality.amount">
+    <button (click)="create()">Submit</button>
+
+	</div>
+</div>

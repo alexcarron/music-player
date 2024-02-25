@@ -1,0 +1,12 @@
+
+<button (click)="toggle()">Qualities</button>
+<div *ngIf="isVisible" class="quality-selector" (click)="closeOnClick($event)" (closeModal)="close()">
+	<div class="quality-selector-content" (click)="$event.stopPropagation()">
+		<div *ngFor="let quality of qualities">
+			<!-- <quality-editor [quality]="quality"></quality-editor> -->
+		</div>
+		<div>
+			<custom-quality-creator></custom-quality-creator>
+		</div>
+	</div>
+</div>
