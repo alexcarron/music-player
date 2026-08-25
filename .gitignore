@@ -1,3 +1,25 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+dist-ssr
+dist-electron
+release
+
+# Electron packaging cache
+.electron-vite-cache
+
+# Local env files
+.env
+.env.local
+.env.*.local
+
+# SQLite databases
+*.sqlite
+*.sqlite3
+*.db
+
 # Logs
 logs
 *.log
@@ -7,18 +29,20 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Misc
+*.local
